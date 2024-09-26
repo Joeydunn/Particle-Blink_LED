@@ -9,27 +9,59 @@
 // Include Particle Device OS APIs
 #include "Particle.h"
 
-// Let Device OS manage the connection to the Particle Cloud
-SYSTEM_MODE(AUTOMATIC);
+// We define MY_LED to be the LED that we want to blink.
+//
+// In this tutorial, we're using the blue D7 LED (next to D7 on the Photon
+// and Electron, and next to the USB connector on the Argon and Boron).
+const pin_t MY_LED = D7;
 
-// Run the application and system concurrently in separate threads
+// The following line is optional, but recommended in most firmware. It
+// allows your code to run before the cloud is connected. In this case,
+// it will begin blinking almost immediately instead of waiting until
+// breathing cyan,
 SYSTEM_THREAD(ENABLED);
+SYSTEM_MODE(SEMI_AUTOMATIC);
 
-// Show system, cloud connectivity, and application logs over USB
-// View logs with CLI using 'particle serial monitor --follow'
-SerialLogHandler logHandler(LOG_LEVEL_INFO);
+// Random note to show git tools
 
-// setup() runs once, when the device is first turned on
-void setup() {
-  // Put initialization like pinMode and begin functions here
+// The setup() method is called once when the device boots.
+void setup()
+{
+  // Particle.disconnect();
+  // WiFi.off();
+	// In order to set a pin, you must tell Device OS that the pin is
+	// an OUTPUT pin. This is often done from setup() since you only need
+	// to do it once.
+	pinMode(MY_LED, OUTPUT);
 }
 
-// loop() runs over and over again, as quickly as it can execute.
+// the loop function runs over and over again forever
 void loop() {
-  // The core of your code will likely live here.
-
-  // Example: Publish event to cloud every 10 seconds. Uncomment the next 3 lines to try it!
-  // Log.info("Sending Hello World to the cloud!");
-  // Particle.publish("Hello world!");
-  // delay( 10 * 1000 ); // milliseconds and blocking - see docs for more info!
+  digitalWrite(MY_LED, HIGH);  //long blink 
+  delay(400ms);                       
+  digitalWrite(MY_LED, LOW); 
+  delay(400ms);                      
+  digitalWrite(MY_LED, HIGH);  //long blink
+  delay(400ms); 
+  digitalWrite(MY_LED, LOW);   
+  delay(400ms);
+  digitalWrite(MY_LED, HIGH);  //long blink
+  delay(400ms);
+  digitalWrite(MY_LED, LOW);   
+  delay(400ms); 
+  digitalWrite(MY_LED, HIGH);  //long blink
+  delay(400ms);                       
+  digitalWrite(MY_LED, LOW);    
+  delay(200ms);                      
+  digitalWrite(MY_LED, HIGH);  //short blink
+  delay(200ms); 
+  digitalWrite(MY_LED, LOW);
+  delay(200ms);
+  digitalWrite(MY_LED, HIGH);  //short blink
+  delay(200ms);
+  digitalWrite(MY_LED, LOW);
+  delay(200ms);
+  digitalWrite(MY_LED, HIGH);  //short blink
+  delay(200ms);
+  digitalWrite(MY_LED, LOW);
 }
